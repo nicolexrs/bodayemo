@@ -241,7 +241,7 @@ const HeroSlider = () => {
           <button
             key={index}
             onClick={() => setCurrentIndex(index)}
-            className={`h-2 w-2 rounded-full transition-colors duration-300 ${currentIndex === index ? 'bg-purple-500' : 'bg-gray-400'}`}
+            className={`h-2 w-2 rounded-full transition-colors duration-300 ${currentIndex === index ? &rsquo;bg-purple-500&rsquo; : &rsquo;bg-gray-400&rsquo;}`}
           />
         ))}
       </div> */}
@@ -615,7 +615,7 @@ export default function App() {
             </h2>
             <p className="text-lg leading-relaxed text-gray-400 max-w-2xl mx-auto text-center mb-8">
               Interested in booking Bodáyemò for your next event or content
-              creation project? Fill out the form below and we'll get back to
+              creation project? Fill out the form below and we&rsquo;ll get back to
               you shortly.
             </p>
             <form className="max-w-xl mx-auto space-y-6">
