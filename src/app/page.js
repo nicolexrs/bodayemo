@@ -267,7 +267,7 @@ export default function App() {
       >
         {/* Navbar */}
         <motion.nav
-          className="fixed top-0 z-50 w-full  bg-white/90 text-black  py-6 px-14 flex justify-between items-center  shadow-2xl   "
+          className="fixed top-0 z-50 w-full  bg-white/90 text-black  py-6 px-2 lg:px-14 flex justify-between items-center  shadow-2xl   "
           initial={{ y: -100, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.2 }}
@@ -326,7 +326,7 @@ export default function App() {
         {/* Mobile Menu */}
         {isMenuOpen && (
           <motion.div
-            className="md:hidden w-[30vw] fixed  h-screen justify-center items-center bg-white text-black    right-0 z-40  shadow-lg"
+            className="md:hidden w-[50vw] fixed  h-screen justify-center items-center bg-white text-black    right-0 z-40  shadow-lg"
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
@@ -481,92 +481,100 @@ export default function App() {
             </motion.ul>
           </motion.section>
 
-         {/* Wedding Packages Section */}
-<motion.section
-  id="packages"
-  className="py-20 px-10 bg-gradient-to-b from-white to-gray-50"
-  variants={itemVariants}
->
-  <h2 className="text-4xl font-bold mb-4 text-purple-600 text-center">
-    Wedding Packages
-  </h2>
-  <p className="text-center text-lg text-gray-600 mb-12 max-w-2xl mx-auto">
-    Choose from our carefully curated wedding packages designed to create 
-    unforgettable memories for your big day. Each package comes with professional 
-    hosting, engaging entertainment, and a touch of elegance.
-  </p>
+          {/* Wedding Packages Section */}
+          <motion.section
+            id="packages"
+            className="py-20 px-10 bg-gradient-to-b from-white to-gray-50"
+            variants={itemVariants}
+          >
+            <h2 className="text-4xl font-bold mb-4 text-purple-600 text-center">
+              Wedding Packages
+            </h2>
+            <p className="text-center text-lg text-gray-600 mb-12 max-w-2xl mx-auto">
+              Choose from our carefully curated wedding packages designed to
+              create unforgettable memories for your big day. Each package comes
+              with professional hosting, engaging entertainment, and a touch of
+              elegance.
+            </p>
 
-  <motion.ul
-    className="grid md:grid-cols-2 lg:grid-cols-3 gap-10"
-    variants={containerVariants}
-  >
-    {[
-      {
-        title: "Classic Package",
-        features: ["Hosting for 2–3 hours", "Engaging audience flow"],
-        price: "₦100,000",
-        icon: "💍"
-      },
-      {
-        title: "Premium Package",
-        features: ["Hosting for 3–5 hours", "Wedding games", "Audience interaction"],
-        price: "₦200,000",
-        icon: "🎤"
-      },
-      {
-        title: "Luxury Package",
-        features: [
-          "Hosting for 4–6 hours",
-          "Wedding games",
-          "After-party hosting"
-        ],
-        price: "₦300,000",
-        icon: "🎉"
-      },
-      {
-        title: "Content Package",
-        features: [
-          "Hosting for 4–6 hours",
-          "Wedding games",
-          "Professional content creation"
-        ],
-        price: "₦400,000",
-        icon: "📸"
-      },
-      {
-        title: "Elite Package",
-        features: [
-          "Hosting for 4–6 hours",
-          "Wedding games",
-          "After-party hosting",
-          "Content creation"
-        ],
-        price: "₦500,000",
-        icon: "👑"
-      },
-    ].map((pkg, index) => (
-      <motion.li
-        key={index}
-        className="bg-white p-8 rounded-2xl shadow-lg border border-gray-200 
+            <motion.ul
+              className="grid md:grid-cols-2 lg:grid-cols-3 gap-10"
+              variants={containerVariants}
+            >
+              {[
+                {
+                  title: "Classic Package",
+                  features: ["Hosting for 2–3 hours", "Engaging audience flow"],
+                  price: "₦100,000",
+                  icon: "💍",
+                },
+                {
+                  title: "Premium Package",
+                  features: [
+                    "Hosting for 3–5 hours",
+                    "Wedding games",
+                    "Audience interaction",
+                  ],
+                  price: "₦200,000",
+                  icon: "🎤",
+                },
+                {
+                  title: "Luxury Package",
+                  features: [
+                    "Hosting for 4–6 hours",
+                    "Wedding games",
+                    "After-party hosting",
+                  ],
+                  price: "₦300,000",
+                  icon: "🎉",
+                },
+                {
+                  title: "Content Package",
+                  features: [
+                    "Hosting for 4–6 hours",
+                    "Wedding games",
+                    "Professional content creation",
+                  ],
+                  price: "₦400,000",
+                  icon: "📸",
+                },
+                {
+                  title: "Elite Package",
+                  features: [
+                    "Hosting for 4–6 hours",
+                    "Wedding games",
+                    "After-party hosting",
+                    "Content creation",
+                  ],
+                  price: "₦500,000",
+                  icon: "👑",
+                },
+              ].map((pkg, index) => (
+                <motion.li
+                  key={index}
+                  className="bg-white p-8 rounded-2xl shadow-lg border border-gray-200 
                    hover:border-purple-500 hover:shadow-2xl transform hover:scale-105 
                    transition-all duration-300 flex flex-col items-center text-center group"
-        variants={itemVariants}
-      >
-        <div className="text-5xl mb-4 group-hover:animate-pulse">{pkg.icon}</div>
-        <h3 className="text-xl font-semibold text-gray-800 mb-4">{pkg.title}</h3>
-        <ul className="text-gray-600 text-sm space-y-2 mb-6">
-          {pkg.features.map((f, i) => (
-            <li key={i}>✔ {f}</li>
-          ))}
-        </ul>
-        <span className="inline-block px-6 py-2 text-2xl font-bold text-purple-600 bg-purple-50 rounded-full">
-          {pkg.price}
-        </span>
-      </motion.li>
-    ))}
-  </motion.ul>
-</motion.section>
-
+                  variants={itemVariants}
+                >
+                  <div className="text-5xl mb-4 group-hover:animate-pulse">
+                    {pkg.icon}
+                  </div>
+                  <h3 className="text-xl font-semibold text-gray-800 mb-4">
+                    {pkg.title}
+                  </h3>
+                  <ul className="text-gray-600 text-sm space-y-2 mb-6">
+                    {pkg.features.map((f, i) => (
+                      <li key={i}>✔ {f}</li>
+                    ))}
+                  </ul>
+                  <span className="inline-block px-6 py-2 text-2xl font-bold text-purple-600 bg-purple-50 rounded-full">
+                    {pkg.price}
+                  </span>
+                </motion.li>
+              ))}
+            </motion.ul>
+          </motion.section>
 
           {/* Gallery Section */}
           <motion.section
@@ -615,8 +623,8 @@ export default function App() {
             </h2>
             <p className="text-lg leading-relaxed text-gray-400 max-w-2xl mx-auto text-center mb-8">
               Interested in booking Bodáyemò for your next event or content
-              creation project? Fill out the form below and we&rsquo;ll get back to
-              you shortly.
+              creation project? Fill out the form below and we&rsquo;ll get back
+              to you shortly.
             </p>
             <form className="max-w-xl mx-auto space-y-6">
               <div>
