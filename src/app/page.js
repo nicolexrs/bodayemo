@@ -56,12 +56,12 @@ const Sparkles = () => (
 );
 
 const Camera = () => (
-  <Image
+  <img
     width="100"
     height="100"
     src="https://img.icons8.com/bubbles/100/camera.png"
     alt="camera"
-  />
+  ></img>
 );
 
 const Menu = () => (
@@ -255,6 +255,7 @@ export default function App() {
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
+  
 
   return (
     <div className="min-h-screen  bg-gray-950 text-gray-200 font-sans flex flex-col items-center overflow-hidden">
@@ -602,11 +603,11 @@ export default function App() {
                   className="rounded-xl overflow-hidden shadow-lg transform hover:scale-105 transition-transform duration-300 cursor-pointer"
                   variants={itemVariants}
                 >
-                  <Image
+                  <img
                     src={image}
                     alt={`Event ${index + 1}`}
                     className="w-full h-auto object-cover"
-                  />
+                  ></img>
                 </motion.div>
               ))}
             </motion.div>
