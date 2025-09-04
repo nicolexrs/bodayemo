@@ -23,13 +23,13 @@ export default function Navbar() {
   return (
     <motion.nav
       role="navigation"
-      className="fixed top-0 z-50 w-full bg-white backdrop-blur text-black py-4 px-4 lg:px-60 md:px-20 flex justify-between items-center shadow-2xl"
+      className="fixed top-0 z-50 w-full bg-white backdrop-blur text-black py-2 px-4 lg:px-60 md:px-20 flex justify-between items-center shadow-2xl"
       initial={{ y: 0, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.1, delay: 0 }}
     >
       <motion.a href="#hero" className="tracking-wide">
-        <img className="w-20" src={"/by.jpg"} />
+        <img className="w-10 md:w-14" src={"/by.jpg"} />
       </motion.a>
       <div className="hidden md:flex items-center space-x-8">
         {links.map((l) => (

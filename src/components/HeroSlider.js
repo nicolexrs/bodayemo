@@ -93,7 +93,7 @@ export default function HeroSlider() {
       >
         {slides.map((s, i) => (
           <SwiperSlide key={i} className="!flex !justify-center">
-            <div className="relative w-full min-h-[60vh] md:min-h-[80vh] flex items-center justify-center px-6">
+            <div className="relative  w-full min-h-[80vh]  flex items-center justify-center px-6">
               {i === 0 ? (
                 <BackgroundVideoPlaylist sources={["/d.mp4", "/e.mp4", "/f.mp4"]} playing={active === 0} />
               ) : (
