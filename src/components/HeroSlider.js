@@ -1,81 +1,154 @@
 "use client";
-import React, { useEffect, useId, useRef, useState } from "react";
-import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
+import React, { useEffect, useRef, useState } from "react";
+import Image from "next/image";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Keyboard, Autoplay } from "swiper/modules";
+// import "swiper/css"; // ensure this is imported globally once
 import { ChevronLeft, ChevronRight } from "./icons";
 
-const SLIDE_DURATION_MS = 5000;
-
-export default function HeroSlider() {
-  const slides = [
-    {
-      title: "Bodayemo Entertainment",
-      subtitle: "Bringing professional flair and unforgettable experiences to your events and content.",
-      ctaText: "Book Now",
-      ctaLink: "#contact",
-    },
-    {
-      title: "Master of Ceremony",
-      subtitle: "Engaging hosting services to make your event a success.",
-      ctaText: "Learn More",
-      ctaLink: "#services",
-    },
-    {
-      title: "Premium Video Editing",
-      subtitle: "Crafting stunning visuals that tell your story.",
-      ctaText: "View Portfolio",
-      ctaLink: "#gallery",
-    },
-  ];
-
-  const [currentIndex, setCurrentIndex] = useState(0);
+function BackgroundVideoPlaylist({ sources = [], playing = true }) {
+  const videoRef = useRef(null);
+  const [index, setIndex] = useState(0);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentIndex((prevIndex) => (prevIndex + 1) % slides.length);
-    }, 5000);
-    return () => clearInterval(interval);
-  }, [slides.length]);
-
-  const goToPrev = () => setCurrentIndex((prev) => (prev - 1 + slides.length) % slides.length);
-  const goToNext = () => setCurrentIndex((prev) => (prev + 1) % slides.length);
+    const v = videoRef.current;
+    if (!v || sources.length === 0) return;
+    v.muted = true;
+    v.playsInline = true;
+    v.src = sources[index % sources.length];
+    v.load();
+    if (playing) {
+      const id = setTimeout(() => {
+        v.play().catch(() => {});
+      }, 50);
+      return () => clearTimeout(id);
+    } else {
+      v.pause();
+    }
+  }, [index, playing, sources]);
 
   return (
-    <div className="relative w-full text-center z-10 flex flex-col items-center">
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={currentIndex}
-          initial={{ opacity: 0, x: 100 }}
-          animate={{ opacity: 1, x: 0 }}
-          exit={{ opacity: 0, x: -100 }}
-          transition={{ duration: 0.5 }}
-          className="text-center flex flex-col items-center"
-        >
-          <h1 className="text-5xl md:text-7xl font-extrabold text-black/80 leading-tight tracking-wider">
-            {slides[currentIndex].title}
-          </h1>
-          <p className="mt-4 text-xl md:text-2xl text-gray-800 max-w-2xl">{slides[currentIndex].subtitle}</p>
-          <a href={slides[currentIndex].ctaLink} className="mt-8 px-8 py-3 rounded-full bg-black text-white font-bold text-lg shadow-lg hover:bg-purple-700 transition-colors duration-300 transform hover:scale-105 inline-block">
-            {slides[currentIndex].ctaText}
-          </a>
-        </motion.div>
-      </AnimatePresence>
+    <video
+      ref={videoRef}
+      className="absolute inset-0 w-full h-full object-cover"
+      onEnded={() => setIndex((i) => (i + 1) % Math.max(1, sources.length))}
+      preload="metadata"
+      aria-hidden
+    />
+  );
+}
 
-      <button onClick={goToPrev} aria-label="Previous slide" className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-black transition-colors duration-200">
+const slides = [
+  {
+    title: "Bodayemo Entertainment",
+    subtitle: "Bringing professional flair and unforgettable experiences to your events and content.",
+    ctaText: "Book Now",
+    ctaLink: "#contact",
+    bg: "/images.jpeg",
+  },
+  {
+    title: "Master of Ceremony",
+    subtitle: "Engaging hosting services to make your event a success.",
+    ctaText: "Learn More",
+    ctaLink: "#services",
+    bg: "/images.jpeg",
+  },
+  {
+    title: "Premium Video Editing",
+    subtitle: "Crafting stunning visuals that tell your story.",
+    ctaText: "View Portfolio",
+    ctaLink: "#gallery",
+    bg: "/g.jpg",
+  },
+];
+
+export default function HeroSlider() {
+  const prevRef = useRef(null);
+  const nextRef = useRef(null);
+  const swiperRef = useRef(null);
+  const [active, setActive] = useState(0);
+
+  return (
+    <div className="relative w-full text-center flex flex-col items-center pb-10">
+      <Swiper
+        modules={[Navigation, Keyboard, Autoplay]}
+        slidesPerView={1}
+        loop
+        grabCursor
+        speed={500}
+        autoplay={{ delay: 5000, disableOnInteraction: false, pauseOnMouseEnter: true }}
+        keyboard={{ enabled: true }}
+        onBeforeInit={(swiper) => {
+          swiper.params.navigation.prevEl = prevRef.current;
+          swiper.params.navigation.nextEl = nextRef.current;
+        }}
+        onInit={(swiper) => {
+          swiperRef.current = swiper;
+          swiper.navigation.init();
+          swiper.navigation.update();
+          setActive(swiper.realIndex);
+        }}
+        onSlideChange={(swiper) => setActive(swiper.realIndex)}
+        className="w-full"
+      >
+        {slides.map((s, i) => (
+          <SwiperSlide key={i} className="!flex !justify-center">
+            <div className="relative w-full min-h-[60vh] md:min-h-[80vh] flex items-center justify-center px-6">
+              {i === 0 ? (
+                <BackgroundVideoPlaylist sources={["/d.mp4", "/e.mp4", "/f.mp4"]} playing={active === 0} />
+              ) : (
+                <Image
+                  src={s.bg}
+                  alt=""
+                  fill
+                  sizes="100vw"
+                  className="object-cover"
+                />
+              )}
+              <div className="absolute inset-0 bg-black/40" />
+              <div className="relative text-center flex flex-col items-center z-10">
+                <h1 className="text-5xl md:text-7xl font-extrabold text-white leading-tight tracking-wider drop-shadow-md">{s.title}</h1>
+                <p className="mt-4 text-xl md:text-2xl text-gray-100 max-w-2xl drop-shadow">{s.subtitle}</p>
+                <a
+                  href={s.ctaLink}
+                  className="mt-8 px-8 py-3 rounded-full bg-brand text-brand-contrast font-bold text-lg shadow-lg hover:bg-brand-deep transition-colors duration-300 transform hover:scale-105 inline-block"
+                >
+                  {s.ctaText}
+                </a>
+              </div>
+            </div>
+          </SwiperSlide>
+        ))}
+      </Swiper>
+
+      {/* Prev / Next buttons */}
+      <button
+        ref={prevRef}
+        aria-label="Previous slide"
+        className="absolute left-4 top-1/2 -translate-y-1/2 z-20 text-gray-400 hover:text-black transition-colors duration-200"
+      >
         <ChevronLeft />
       </button>
-      <button onClick={goToNext} aria-label="Next slide" className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-black transition-colors duration-200">
+      <button
+        ref={nextRef}
+        aria-label="Next slide"
+        className="absolute right-4 top-1/2 -translate-y-1/2 z-20 text-gray-400 hover:text-black transition-colors duration-200"
+      >
         <ChevronRight />
       </button>
 
-      <div className="absolute -bottom-4 md:bottom-4 flex space-x-2">
-        {slides.map((_, index) => (
+      {/* Pagination dots */}
+      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 z-20 flex space-x-2">
+        {slides.map((_, i) => (
           <button
-            key={index}
-            onClick={() => setCurrentIndex(index)}
-            aria-label={`Go to slide ${index + 1}`}
-            aria-current={currentIndex === index}
-            className={`h-2.5 w-2.5 rounded-full transition-colors duration-300 ${currentIndex === index ? "bg-purple-600" : "bg-gray-300"}`}
-          />
+            key={i}
+            onClick={() => swiperRef.current?.slideToLoop(i)}
+            className={`h-2.5 w-2.5 rounded-full transition-colors duration-300 ${
+              active === i ? "bg-brand" : "bg-gray-300 hover:bg-gray-400"
+            }`}
+          >
+            <span className="sr-only">Go to slide {i + 1}</span>
+          </button>
         ))}
       </div>
     </div>

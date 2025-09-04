@@ -1,6 +1,10 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
 import ChatbaseWidget from "./widget";
+import ThemeFromLogo from "@/components/ThemeFromLogo";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -23,6 +27,7 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <ThemeFromLogo />
         {children}
          <ChatbaseWidget />
       </body>
