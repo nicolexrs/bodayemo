@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { itemVariants } from "@/lib/motion";
 
@@ -7,20 +8,22 @@ export default function ContactSection() {
     <motion.section id="contact" className="p-10 md:px-20 lg:px-60 " variants={itemVariants}>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-stretch">
         {/* Image side */}
-        <div className=" hidden md:block  order-2 lg:order-1 rounded-2xl overflow-hidden shadow-md min-h-[280px] md:min-h-[360px] lg:min-h-[480px]">
-          <img
+        <div className="hidden md:block order-2 lg:order-1 rounded-2xl overflow-hidden shadow-md min-h-[280px] md:min-h-[360px] lg:min-h-[480px] relative">
+          <Image
             src="/w.jpg"
             alt="Professional contact and planning"
-            className="w-full h-full object-cover"
-            loading="lazy"
+            fill
+            sizes="(min-width: 1024px) 50vw, 100vw"
+            className="object-cover"
+            priority={false}
           />
         </div>
 
         {/* Content + Form */}
-        <div className=" flex flex-col justify-center">
+        <div className="flex flex-col justify-center">
           <h2 className="text-4xl font-bold mb-4 text-black text-center lg:text-left">Get in Touch</h2>
           <p className="text-lg leading-relaxed text-gray-600 mb-8 text-center lg:text-left">
-            Interested in booking Bodayemo for your next event or content creation project? Fill out the form below and we’ll get back to you shortly.
+            Interested in booking Bodayemo for your next event or content creation project? Fill out the form below and we'll get back to you shortly.
           </p>
 
           <form className="space-y-6">

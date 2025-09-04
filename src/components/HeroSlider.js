@@ -32,7 +32,10 @@ function BackgroundVideoPlaylist({ sources = [], playing = true }) {
       ref={videoRef}
       className="absolute inset-0 w-full h-full object-cover"
       onEnded={() => setIndex((i) => (i + 1) % Math.max(1, sources.length))}
-      preload="metadata"
+      preload="auto"
+      muted
+      playsInline
+      poster="/images.jpeg"
       aria-hidden
     />
   );
@@ -102,6 +105,7 @@ export default function HeroSlider() {
                   alt=""
                   fill
                   sizes="100vw"
+                  quality={70}
                   className="object-cover"
                 />
               )}

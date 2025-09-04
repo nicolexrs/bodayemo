@@ -1,5 +1,6 @@
 "use client";
 import React, { useState } from "react";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { MenuIcon, XIcon, Instagram, Youtube } from "./icons";
 
@@ -29,7 +30,7 @@ export default function Navbar() {
       transition={{ duration: 0.1, delay: 0 }}
     >
       <motion.a href="#hero" className="tracking-wide">
-        <img className="w-10 md:w-14" src={"/by.jpg"} />
+        <Image src="/by.jpg" alt="Bodayemo logo" width={56} height={56} className="w-10 md:w-14 h-auto" priority />
       </motion.a>
       <div className="hidden md:flex items-center space-x-8">
         {links.map((l) => (
@@ -81,7 +82,7 @@ export default function Navbar() {
             {/* Header */}
             <div className="flex items-center justify-between px-6 py-4 border-b border-gray-200">
               <a href="#hero" onClick={toggleMenu} className="tracking-wide flex items-center gap-3">
-                <img className="w-10 h-10 rounded-full" src="/by.jpg" alt="Bodayemo" />
+                <Image className="w-10 h-10 rounded-full" src="/by.jpg" alt="Bodayemo" width={40} height={40} />
                 <span className="font-semibold">Bodayemo Inc.</span>
               </a>
               <button onClick={toggleMenu} aria-label="Close menu" className="text-gray-600 hover:text-black">

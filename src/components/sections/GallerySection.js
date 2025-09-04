@@ -28,13 +28,20 @@ export default function GallerySection() {
             variants={itemVariants}
           >
             {m.type === "image" ? (
-              <Image src={m.src} alt={m.alt ?? `Event image ${index + 1}`} width={600} height={400} className="w-full h-auto object-cover" />
+              <Image
+                src={m.src}
+                alt={m.alt ?? `Event image ${index + 1}`}
+                width={600}
+                height={400}
+                sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                quality={70}
+                className="w-full h-auto object-cover"
+              />
             ) : (
               <video
                 src={m.src}
-               
                 controls
-                preload="metadata"
+                preload="auto"
                 playsInline
                 className="w-full h-auto object-cover bg-black"
                 title={`Event video ${index + 1}`}
