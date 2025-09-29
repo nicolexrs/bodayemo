@@ -41,3 +41,42 @@ html {
 /* Swiper theming */
 .swiper-pagination-bullet { background: #d1d5db; opacity: 1; }
 .swiper-pagination-bullet-active { background: var(--brand); }
+/* Booking calendar styling */
+.react-datepicker {
+  border: none !important;
+  border-radius: 20px !important;
+  padding: 16px !important;
+  box-shadow: 0 25px 60px rgba(15, 23, 42, 0.18) !important;
+  font-family: "Inter", "Segoe UI", sans-serif !important;
+}
+
+.react-datepicker__header {
+  background: transparent !important;
+  border-bottom: none !important;
+  padding-top: 0 !important;
+}
+
+.react-datepicker__current-month,
+.react-datepicker-time__header,
+.react-datepicker-year-header {
+  display: none;
+}
+
+.react-datepicker__day-name {
+  width: 2.4rem !important;
+  line-height: 2.4rem !important;
+  color: #94a3b8 !important;
+  font-weight: 600 !important;
+}
+
+.react-datepicker__day {
+  margin: 0.15rem !important;
+}
+
+.react-datepicker__triangle {
+  display: none;
+}
+
+.react-datepicker-popper {
+  z-index: 50;
+}

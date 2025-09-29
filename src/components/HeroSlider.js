@@ -5,8 +5,11 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Keyboard, Autoplay } from "swiper/modules";
 // import "swiper/css"; // ensure this is imported globally once
 import { ChevronLeft, ChevronRight } from "./icons";
+import { heroSlides, heroVideoSources } from "@/data/hero";
 
-function BackgroundVideoPlaylist({ sources = [], playing = true }) {
+const DEFAULT_VIDEO_SOURCES = heroVideoSources;
+
+function BackgroundVideoPlaylist({ sources = DEFAULT_VIDEO_SOURCES, playing = true }) {
   const videoRef = useRef(null);
   const [index, setIndex] = useState(0);
 
@@ -22,15 +25,14 @@ function BackgroundVideoPlaylist({ sources = [], playing = true }) {
         v.play().catch(() => {});
       }, 50);
       return () => clearTimeout(id);
-    } else {
-      v.pause();
     }
+    v.pause();
   }, [index, playing, sources]);
 
   return (
     <video
       ref={videoRef}
-      className="absolute inset-0 w-full h-full object-cover"
+      className="absolute inset-0 w-full h-full object-contain md:object-cover bg-black md:bg-transparent"
       onEnded={() => setIndex((i) => (i + 1) % Math.max(1, sources.length))}
       preload="auto"
       muted
@@ -40,30 +42,6 @@ function BackgroundVideoPlaylist({ sources = [], playing = true }) {
     />
   );
 }
-
-const slides = [
-  {
-    title: "Bodayemo Entertainment",
-    subtitle: "Bringing professional flair and unforgettable experiences to your events and content.",
-    ctaText: "Book Now",
-    ctaLink: "#contact",
-    bg: "/images.jpeg",
-  },
-  {
-    title: "Master of Ceremony",
-    subtitle: "Engaging hosting services to make your event a success.",
-    ctaText: "Learn More",
-    ctaLink: "#services",
-    bg: "/images.jpeg",
-  },
-  {
-    title: "Premium Video Editing",
-    subtitle: "Crafting stunning visuals that tell your story.",
-    ctaText: "View Portfolio",
-    ctaLink: "#gallery",
-    bg: "/g.jpg",
-  },
-];
 
 export default function HeroSlider() {
   const prevRef = useRef(null);
@@ -94,14 +72,14 @@ export default function HeroSlider() {
         onSlideChange={(swiper) => setActive(swiper.realIndex)}
         className="w-full"
       >
-        {slides.map((s, i) => (
-          <SwiperSlide key={i} className="!flex !justify-center">
+        {heroSlides.map((slide, index) => (
+          <SwiperSlide key={index} className="!flex !justify-center">
             <div className="relative  w-full min-h-[80vh]  flex items-center justify-center px-6">
-              {i === 0 ? (
-                <BackgroundVideoPlaylist sources={["/d.mp4", "/e.mp4", "/f.mp4"]} playing={active === 0} />
+              {index === 0 ? (
+                <BackgroundVideoPlaylist playing={active === 0} />
               ) : (
                 <Image
-                  src={s.bg}
+                  src={slide.bg}
                   alt=""
                   fill
                   sizes="100vw"
@@ -111,13 +89,13 @@ export default function HeroSlider() {
               )}
               <div className="absolute inset-0 bg-black/40" />
               <div className="relative text-center flex flex-col items-center z-10">
-                <h1 className="text-5xl md:text-7xl font-extrabold text-white leading-tight tracking-wider drop-shadow-md">{s.title}</h1>
-                <p className="mt-4 text-xl md:text-2xl text-gray-100 max-w-2xl drop-shadow">{s.subtitle}</p>
+                <h1 className="text-5xl md:text-7xl font-extrabold text-white leading-tight tracking-wider drop-shadow-md">{slide.title}</h1>
+                <p className="mt-4 text-xl md:text-2xl text-gray-100 max-w-2xl drop-shadow">{slide.subtitle}</p>
                 <a
-                  href={s.ctaLink}
+                  href={slide.ctaLink}
                   className="mt-8 px-8 py-3 rounded-full bg-brand text-brand-contrast font-bold text-lg shadow-lg hover:bg-brand-deep transition-colors duration-300 transform hover:scale-105 inline-block"
                 >
-                  {s.ctaText}
+                  {slide.ctaText}
                 </a>
               </div>
             </div>
@@ -143,15 +121,15 @@ export default function HeroSlider() {
 
       {/* Pagination dots */}
       <div className="absolute bottom-0 left-1/2 -translate-x-1/2 z-20 flex space-x-2">
-        {slides.map((_, i) => (
+        {heroSlides.map((_, index) => (
           <button
-            key={i}
-            onClick={() => swiperRef.current?.slideToLoop(i)}
+            key={index}
+            onClick={() => swiperRef.current?.slideToLoop(index)}
             className={`h-2.5 w-2.5 rounded-full transition-colors duration-300 ${
-              active === i ? "bg-brand" : "bg-gray-300 hover:bg-gray-400"
+              active === index ? "bg-brand" : "bg-gray-300 hover:bg-gray-400"
             }`}
           >
-            <span className="sr-only">Go to slide {i + 1}</span>
+            <span className="sr-only">Go to slide {index + 1}</span>
           </button>
         ))}
       </div>

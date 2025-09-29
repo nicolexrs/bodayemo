@@ -2,7 +2,6 @@
 
 import { useEffect } from "react";
 
-// Lightweight dominant color extractor using Canvas (no deps)
 export default function ThemeFromLogo({ src = "/by.jpg" }) {
   useEffect(() => {
     try {
@@ -21,14 +20,14 @@ export default function ThemeFromLogo({ src = "/by.jpg" }) {
         const { data } = ctx.getImageData(0, 0, w, hpx);
 
         const buckets = new Map();
-        const q = 24; // quantization step
+        const q = 24; 
         for (let i = 0; i < data.length; i += 4) {
           const r = data[i];
           const g = data[i + 1];
           const b = data[i + 2];
           const a = data[i + 3];
-          if (a < 128) continue; // skip transparent
-          // skip near white and near black
+          if (a < 128) continue;
+     
           const max = Math.max(r, g, b);
           const min = Math.min(r, g, b);
           if (max > 240 && min > 200) continue; // too white
@@ -40,7 +39,7 @@ export default function ThemeFromLogo({ src = "/by.jpg" }) {
           buckets.set(key, (buckets.get(key) || 0) + 1);
         }
 
-        let best = "124,58,237"; // fallback (purple-600)
+        let best = "124,58,237"; 
         let bestCount = 0;
         for (const [key, count] of buckets) {
           if (count > bestCount) {
@@ -104,8 +103,8 @@ export default function ThemeFromLogo({ src = "/by.jpg" }) {
         };
 
         const brand = toCss(r, g, b);
-        const brandSoft = lighten(0.35); // lighter bg
-        const brandDeep = darken(0.2);   // darker hover
+        const brandSoft = lighten(0.35); 
+        const brandDeep = darken(0.2);   
 
         const luminance = (0.2126 * r + 0.7152 * g + 0.0722 * b);
         const contrast = luminance > 150 ? "#111111" : "#ffffff";
@@ -117,7 +116,7 @@ export default function ThemeFromLogo({ src = "/by.jpg" }) {
         root.setProperty("--brand-contrast", contrast);
       };
     } catch (_) {
-      // noop — keep fallbacks
+
     }
   }, [src]);
 

@@ -11,6 +11,7 @@ export default function App() {
         <div className="space-y-24">
           <AboutSection />
           <ServicesSection />
+            <h2 className="text-4xl font-bold mb-0 text-center text-brand underline">Packages</h2>
           <PackagesSection />
           <GallerySection />
           <ContactSection />

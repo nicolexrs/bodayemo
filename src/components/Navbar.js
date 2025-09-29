@@ -1,25 +1,20 @@
-"use client";
+﻿"use client";
 import React, { useState } from "react";
+import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { MenuIcon, XIcon, Instagram, Youtube } from "./icons";
+import { MenuIcon, XIcon, Instagram, Youtube, Facebook } from "./icons";
+import { navLinks, navSocials } from "@/data/navigation";
+
+const socialIconMap = {
+  instagram: Instagram,
+  youtube: Youtube,
+  facebook: Facebook,
+};
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const toggleMenu = () => setIsMenuOpen((s) => !s);
-
-  const links = [
-    { href: "#about", label: "About" },
-    { href: "#services", label: "Services" },
-    { href: "#packages", label: "Packages" },
-    { href: "#gallery", label: "Gallery" },
-    { href: "#contact", label: "Contact" },
-  ];
-
-  const socials = [
-    { href: "https://instagram.com/bodayemo", label: "Instagram", Icon: Instagram },
-    { href: "https://youtube.com/@bodayemo", label: "YouTube", Icon: Youtube },
-  ];
 
   return (
     <motion.nav
@@ -29,33 +24,37 @@ export default function Navbar() {
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.1, delay: 0 }}
     >
-      <motion.a href="#hero" className="tracking-wide">
+      <Link href="/" className="tracking-wide">
         <Image src="/by.jpg" alt="Bodayemo logo" width={56} height={56} className="w-10 md:w-14 h-auto" priority />
-      </motion.a>
+      </Link>
       <div className="hidden md:flex items-center space-x-8">
-        {links.map((l) => (
-          <motion.a key={l.href} href={l.href} className="hover:text-brand transition-colors duration-200" whileHover={{ scale: 1.05 }}>
-            {l.label}
-          </motion.a>
+        {navLinks.map((link) => (
+          <motion.div key={link.href} whileHover={{ scale: 1.05 }}>
+            <Link href={link.href} className="hover:text-brand transition-colors duration-200">
+              {link.label}
+            </Link>
+          </motion.div>
         ))}
-         </div>
-        <div className="ml-2 hidden  md:flex items-center space-x-3">
-          {socials.map(({ href, label, Icon }) => (
+      </div>
+      <div className="ml-2 hidden  md:flex items-center space-x-3">
+        {navSocials.map((social) => {
+          const Icon = socialIconMap[social.icon];
+          if (!Icon) return null;
+          return (
             <a
-              key={href}
-              href={href}
-              aria-label={label}
+              key={social.href}
+              href={social.href}
+              aria-label={social.label}
               target="_blank"
               rel="noopener noreferrer"
               className="text-gray-600 hover:text-brand transition-colors duration-200"
             >
               <Icon />
             </a>
-          ))}
-       
-       
+          );
+        })}
       </div>
-  
+
       <button onClick={toggleMenu} aria-expanded={isMenuOpen} aria-controls="mobile-menu" className="md:hidden text-black hover:text-brand transition-colors duration-200">
         {isMenuOpen ? <XIcon /> : <MenuIcon />}
       </button>
@@ -81,10 +80,10 @@ export default function Navbar() {
           >
             {/* Header */}
             <div className="flex items-center justify-between px-6 py-4 border-b border-gray-200">
-              <a href="#hero" onClick={toggleMenu} className="tracking-wide flex items-center gap-3">
+              <Link href="/" onClick={toggleMenu} className="tracking-wide flex items-center gap-3">
                 <Image className="w-10 h-10 rounded-full" src="/by.jpg" alt="Bodayemo" width={40} height={40} />
                 <span className="font-semibold">Bodayemo Inc.</span>
-              </a>
+              </Link>
               <button onClick={toggleMenu} aria-label="Close menu" className="text-gray-600 hover:text-black">
                 <XIcon />
               </button>
@@ -93,44 +92,46 @@ export default function Navbar() {
             {/* Links */}
             <nav className="px-6 py-6">
               <ul className="space-y-2">
-                {links.map((l) => (
-                  <li key={l.href}>
-                    <a
-                      href={l.href}
+                {navLinks.map((link) => (
+                  <li key={link.href}>
+                    <Link
+                      href={link.href}
                       onClick={toggleMenu}
                       className="block rounded-lg px-4 py-3 text-lg font-medium text-gray-800 hover:bg-gray-50 hover:text-brand transition-colors"
                     >
-                      {l.label}
-                    </a>
+                      {link.label}
+                    </Link>
                   </li>
                 ))}
               </ul>
 
-              <a
-                href="#contact"
+              <Link
+                href="/contact"
                 onClick={toggleMenu}
                 className="mt-6 inline-flex w-full items-center justify-center rounded-xl bg-brand text-brand-contrast px-4 py-3 font-semibold shadow hover:bg-brand-deep transition-colors"
               >
                 Book Now
-              </a>
+              </Link>
 
               <div className="mt-6 flex items-center gap-4">
-                {socials.map(({ href, label, Icon }) => (
-                  <a
-                    key={href}
-                    href={href}
-                    aria-label={label}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-gray-600 hover:text-brand transition-colors"
-                    onClick={toggleMenu}
-                  >
-                    <Icon />
-                  </a>
-                ))}
+                {navSocials.map((social) => {
+                  const Icon = socialIconMap[social.icon];
+                  if (!Icon) return null;
+                  return (
+                    <a
+                      key={social.href}
+                      href={social.href}
+                      aria-label={social.label}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-gray-600 hover:text-brand transition-colors"
+                      onClick={toggleMenu}
+                    >
+                      <Icon />
+                    </a>
+                  );
+                })}
               </div>
-
-             
             </nav>
           </motion.div>
         </>
