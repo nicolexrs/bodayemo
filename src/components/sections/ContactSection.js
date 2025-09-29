@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import Image from "next/image";
@@ -50,7 +50,7 @@ export default function ContactSection() {
 
       setStatus({
         type: "success",
-        message: "Thank you! Your message has been sent. We'll get back to you shortly.",
+        message: "Thank you! Your message has been sent. We&rsquo;ll get back to you shortly.",
       });
       setFormValues(initialFormState);
     } catch (error) {
@@ -81,7 +81,7 @@ export default function ContactSection() {
         <div className="flex flex-col justify-center">
           <h2 className="text-4xl font-bold mb-4 text-brand underline text-center lg:text-left">Get in Touch</h2>
           <p className="text-lg leading-relaxed text-gray-600 mb-8 text-center lg:text-left">
-            Interested in booking Bodayemo for your next event or content creation project? Fill out the form below and we'll get back to you shortly.
+            Interested in booking Bodayemo for your next event or content creation project? Fill out the form below and we&rsquo;ll get back to you shortly.
           </p>
 
           <form className="space-y-6" onSubmit={handleSubmit}>
@@ -158,3 +158,5 @@ export default function ContactSection() {
     </motion.section>
   );
 }
+
+

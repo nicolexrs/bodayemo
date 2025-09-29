@@ -155,8 +155,7 @@ export default function AboutPage() {
                 <div className="relative mt-6 rounded-3xl bg-white border border-gray-100 shadow-lg p-6">
                   <p className="text-xs font-semibold uppercase tracking-[0.3em] text-brand-soft">Founder note</p>
                   <p className="mt-3 text-base text-gray-700 leading-relaxed">
-                    "Great events do more than entertain. They build trust, move hearts, and spark action. Our job is to ensure every second on stage
-                    or on camera earns that reaction."
+                    &ldquo;Great events do more than entertain. They build trust, move hearts, and spark action. Our job is to ensure every second on stage or on camera earns that reaction.&rdquo;
                   </p>
                   <p className="mt-4 text-sm font-semibold text-gray-900">Bodayemo - Lead Host and Creative Director</p>
                 </div>
@@ -250,3 +249,4 @@ export default function AboutPage() {
     </div>
   );
 }
+
