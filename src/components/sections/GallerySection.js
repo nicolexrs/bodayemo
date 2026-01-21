@@ -79,11 +79,12 @@ export default function GallerySection() {
                     />
                   ) : (
                     <>
-                       <video
+                      <video
                         src={mediaItem.src}
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                         muted
                         playsInline
+                        preload="metadata"
                       />
                       <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
                         <div className="w-14 h-14 rounded-full bg-white/30 backdrop-blur-md flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-lg border border-white/40">

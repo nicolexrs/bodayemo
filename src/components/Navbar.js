@@ -157,16 +157,15 @@ export default function Navbar() {
       <AnimatePresence>
         {isMenuOpen && (
           <motion.div
-            initial={{ opacity: 0, backdropFilter: "blur(0px)" }}
-            animate={{ opacity: 1, backdropFilter: "blur(20px)" }}
-            exit={{ opacity: 0, backdropFilter: "blur(0px)" }}
-            transition={{ duration: 0.4 }}
-            className="fixed inset-0 z-40 bg-black/90 md:hidden overflow-hidden flex flex-col items-center justify-center text-center"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="fixed inset-0 z-40 bg-black md:hidden overflow-hidden flex flex-col items-center justify-center text-center"
           >
-            {/* Background decorations - Dark Glass */}
-            <div className="absolute top-[-20%] right-[-20%] w-[500px] h-[500px] bg-brand/20 rounded-full blur-[100px] pointer-events-none z-0" />
-            <div className="absolute bottom-[-20%] left-[-20%] w-[500px] h-[500px] bg-blue-600/10 rounded-full blur-[100px] pointer-events-none z-0" />
-
+            {/* Optimized Background - Removed heavy blurs/glassmorphism for mobile performance */}
+            <div className="absolute inset-0 bg-gradient-to-b from-gray-900 to-black z-0" />
+            
             <div className="relative z-10 w-full px-6 flex flex-col gap-10 h-full justify-center pb-20 pt-20">
               <nav className="flex flex-col gap-8">
                 {navLinks.map((link, i) => (
