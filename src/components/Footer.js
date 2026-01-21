@@ -19,19 +19,31 @@ export default function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="w-full mt-16 bg-black backdrop-blur border-t border-gray-800 text-gray-300">
-      <div className="lg:px-60 md:px-20 mx-auto px-10 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
-          {/* Brand */}
-          <div>
-            <Link href="/" className="inline-flex items-center gap-3">
-              <Image src="/by.jpg" alt="Bodayemo Inc." width={56} height={56} className="rounded-full shadow" />
-              <span className="text-xl font-semibold tracking-wide">Bodayemo Inc.</span>
+    <footer className="w-full bg-black text-gray-400 py-20 px-6 md:px-12 lg:px-24 border-t border-white/10">
+      <div className="max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-20">
+          {/* Brand Column */}
+          <div className="space-y-6">
+            <Link href="/" className="inline-flex items-center gap-3 group">
+              <div className="relative overflow-hidden rounded-full border border-white/10 group-hover:border-brand transition-colors duration-300">
+                <Image
+                  src="/by.jpg"
+                  alt="Bodayemo Inc."
+                  width={56}
+                  height={56}
+                  className="w-12 h-12 grayscale group-hover:grayscale-0 transition-all duration-300"
+                />
+              </div>
+              <span className="text-xl font-bold text-white tracking-wide">
+                Bodayemo
+              </span>
             </Link>
-            <p className="mt-4 text-sm leading-relaxed">
-              Events, ads, and artiste content with professional flair. We craft memorable experiences and engaging stories for brands and audiences.
+            <p className="text-sm leading-relaxed text-gray-500 max-w-xs">
+              Crafting memorable experiences and engaging stories. We blend
+              stage presence with production strategy for brands that dare to
+              stand out.
             </p>
-            <div className="mt-4 flex items-center gap-4">
+            <div className="flex items-center gap-4 pt-2">
               {navSocials.map((social) => {
                 const Icon = socialIconMap[social.icon];
                 if (!Icon) return null;
@@ -42,7 +54,7 @@ export default function Footer() {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={social.label}
-                    className="hover:text-brand transition-colors"
+                    className="p-2 rounded-full bg-white/5 hover:bg-brand hover:text-white transition-all duration-300 hover:-translate-y-1"
                   >
                     <Icon />
                   </a>
@@ -51,13 +63,16 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Quick links */}
+          {/* Navigation */}
           <div>
-            <h3 className="text-sm font-semibold uppercase tracking-wider text-gray-100">Quick Links</h3>
-            <ul className="mt-4 space-y-2 text-sm">
+            <h3 className="text-white font-bold mb-6 tracking-wide">Explore</h3>
+            <ul className="space-y-3">
               {navLinks.map((link) => (
                 <li key={link.href}>
-                  <Link className="hover:text-brand transition-colors" href={link.href}>
+                  <Link
+                    href={link.href}
+                    className="text-sm hover:text-brand hover:pl-2 transition-all duration-300 block"
+                  >
                     {link.label}
                   </Link>
                 </li>
@@ -67,11 +82,16 @@ export default function Footer() {
 
           {/* Services */}
           <div>
-            <h3 className="text-sm font-semibold uppercase tracking-wider text-gray-100">What We Do</h3>
-            <ul className="mt-4 space-y-2 text-sm">
+            <h3 className="text-white font-bold mb-6 tracking-wide">
+              Services
+            </h3>
+            <ul className="space-y-3">
               {services.map((service) => (
                 <li key={service.slug}>
-                  <Link href={`/services/${service.slug}`} className="hover:text-brand transition-colors">
+                  <Link
+                    href={`/services/${service.slug}`}
+                    className="text-sm hover:text-brand hover:pl-2 transition-all duration-300 block"
+                  >
                     {service.title}
                   </Link>
                 </li>
@@ -81,57 +101,57 @@ export default function Footer() {
 
           {/* Newsletter */}
           <div>
-            <h3 className="text-sm font-semibold uppercase tracking-wider text-gray-100">Stay Updated</h3>
-            <p className="mt-4 text-sm">Get news about events, content drops, and offers.</p>
+            <h3 className="text-white font-bold mb-6 tracking-wide">
+              Stay Connected
+            </h3>
+            <p className="text-sm mb-4 text-gray-500">
+              Join our newsletter for the latest updates and exclusive offers.
+            </p>
             <form
-              className="mt-4 flex items-center gap-2"
+              className="flex flex-col gap-3"
               onSubmit={(e) => {
                 e.preventDefault();
                 alert("Thanks for subscribing!");
               }}
             >
-              <label htmlFor="newsletter" className="sr-only">
-                Email address
-              </label>
               <input
-                id="newsletter"
                 type="email"
                 required
-                placeholder="you@example.com"
-                className="flex-1 rounded-lg border border-gray-300 dark:border-gray-700 bg-white/70 dark:bg-black/40 px-3 py-2 text-sm outline-none focus:border-brand"
+                placeholder="Enter your email"
+                className="w-full rounded-lg bg-white/5 border border-white/10 px-4 py-3 text-sm text-white placeholder:text-gray-600 focus:outline-none focus:border-brand focus:ring-1 focus:ring-brand transition-all"
               />
               <button
                 type="submit"
-                className="rounded-lg bg-brand text-brand-contrast text-sm font-semibold px-4 py-2 hover:bg-brand-deep transition-colors"
+                className="w-full rounded-lg bg-brand text-white text-sm font-semibold px-4 py-3 hover:bg-brand-deep shadow-lg shadow-brand/20 transition-all duration-300"
               >
                 Subscribe
               </button>
             </form>
-            <p className="mt-2 text-xs text-gray-500 dark:text-gray-400">We respect your privacy. Unsubscribe any time.</p>
           </div>
         </div>
 
-        <div className="mt-10 border-t border-gray-200 dark:border-gray-800 pt-6 flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-xs">&copy; {year} Bodayemo Inc. All rights reserved.</p>
-          <div className="flex items-center gap-4 text-xs">
-            {footerMetaLinks.map((link, index) => {
-              const linkContent = isInternalHref(link.href) ? (
-                <Link href={link.href} className="hover:text-brand">
-                  {link.label}
-                </Link>
-              ) : (
-                <a href={link.href} className="hover:text-brand">
-                  {link.label}
-                </a>
-              );
-
-              return (
-                <React.Fragment key={`${link.href}-${index}`}>
-                  {linkContent}
-                  {index < footerMetaLinks.length - 1 ? <span className="opacity-40">|</span> : null}
-                </React.Fragment>
-              );
-            })}
+        <div className="mt-20 pt-8 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-6 text-xs text-gray-600">
+          <p>&copy; {year} Bodayemo Inc. All rights reserved.</p>
+          <div className="flex flex-wrap justify-center gap-6">
+            {footerMetaLinks.map((link, index) => (
+              <React.Fragment key={`${link.href}-${index}`}>
+                {isInternalHref(link.href) ? (
+                  <Link
+                    href={link.href}
+                    className="hover:text-white transition-colors"
+                  >
+                    {link.label}
+                  </Link>
+                ) : (
+                  <a
+                    href={link.href}
+                    className="hover:text-white transition-colors"
+                  >
+                    {link.label}
+                  </a>
+                )}
+              </React.Fragment>
+            ))}
           </div>
         </div>
       </div>

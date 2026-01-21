@@ -19,6 +19,13 @@
   --color-brand-soft: var(--brand-soft);
   --color-brand-deep: var(--brand-deep);
   --color-brand-contrast: var(--brand-contrast);
+  --animate-shine: shine 1.5s infinite linear;
+}
+
+@keyframes shine {
+  to {
+    transform: translateX(100%);
+  }
 }
 
 @media (prefers-color-scheme: dark) {

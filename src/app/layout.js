@@ -19,6 +19,9 @@ const geistMono = Geist_Mono({
 export const metadata = {
   title: "Bodayemo Inc. - Events, Ads, and Artiste Content",
   description: "Bodayemo Inc. is a leading entertainment company that specializes in creating unforgettable experiences. We are passionate about what we do and we are committed to providing our clients with the best possible service.",
+  icons: {
+    icon: "/by.jpg",
+  },
 };
 
 export default function RootLayout({ children }) {

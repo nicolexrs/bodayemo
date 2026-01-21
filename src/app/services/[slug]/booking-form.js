@@ -76,7 +76,7 @@ function FancyDatePicker({
   return (
     <div className="relative">
       {label ? (
-        <label htmlFor={id} className="block text-sm font-medium text-gray-700">
+        <label htmlFor={id} className="block text-xs font-medium text-gray-700 mb-1">
           {label}{required ? <span className="text-brand"> *</span> : null}
         </label>
       ) : null}
@@ -87,15 +87,15 @@ function FancyDatePicker({
         aria-haspopup="dialog"
         aria-expanded={open}
         onClick={() => setOpen((v)=>!v)}
-        className="mt-2 w-full rounded-xl border border-gray-300 px-4 py-3 pr-12 text-left text-gray-900 focus:border-brand focus:outline-none bg-white"
+        className="w-full rounded-lg border border-gray-300 px-3 py-2 text-left text-sm text-gray-900 focus:border-brand focus:outline-none bg-white relative"
       >
         <span className={value ? "" : "text-gray-400"}>
           {value
             ? new Date(value).toLocaleDateString(undefined, { year:"numeric", month:"long", day:"numeric" })
             : placeholder}
         </span>
-        <span className="pointer-events-none absolute inset-y-0 right-4 top-[34px] -translate-y-1/2 flex items-center text-brand">
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+        <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 flex items-center text-gray-400">
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
             <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
             <path d="M16 2v4" /><path d="M8 2v4" /><path d="M3 10h18" />
           </svg>
@@ -347,18 +347,20 @@ export default function ServiceBookingForm({ service, packages = [], initialPack
   };
 
   return (
-    <div className="rounded-2xl bg-white shadow-xl border border-gray-200 p-8">
-      <h2 className="text-2xl md:text-3xl font-semibold text-gray-900 mb-2">
-        Ready to book {service.title}?
-      </h2>
-      <p className="text-gray-600 mb-8">
-        Tell us a little about your event or project and we will revert with availability, timelines, and next steps.
-      </p>
+    <div className="bg-gray-50 rounded-[2rem] p-8 md:p-12 border border-gray-100">
+      <div className="text-center max-w-2xl mx-auto mb-10">
+        <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-3">
+          Ready to book {service.title}?
+        </h2>
+        <p className="text-gray-500">
+          Tell us about your event and we will revert shortly with availability and next steps.
+        </p>
+      </div>
 
-      <form className="space-y-6" onSubmit={handleSubmit}>
+      <form className="space-y-8" onSubmit={handleSubmit}>
         {hasPackages ? (
           <div>
-            <label htmlFor="booking-package" className="block text-sm font-medium text-gray-700">
+            <label htmlFor="booking-package" className="block text-xs font-semibold uppercase tracking-wider text-gray-500 mb-1">
               Choose a package
             </label>
             <select
@@ -366,9 +368,9 @@ export default function ServiceBookingForm({ service, packages = [], initialPack
               value={formValues.packageSlug}
               onChange={updateField("packageSlug")}
               required
-              className="mt-2 w-full rounded-xl border border-gray-300 px-4 py-3 text-gray-900 focus:border-brand focus:outline-none"
+              className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-brand focus:outline-none"
             >
-              <option value="">Select your preferred package to book</option>
+              <option value="">Select package</option>
               {packages.map((pkg) => (
                 <option key={pkg.slug} value={pkg.slug}>
                   {pkg.title} {pkg.price ? `(${pkg.price})` : ""}
@@ -376,23 +378,20 @@ export default function ServiceBookingForm({ service, packages = [], initialPack
               ))}
             </select>
 
-            {selectedPackage ? (
-              <ul className="mt-4 rounded-xl border border-brand-soft/40 bg-brand-soft/10 px-4 py-3 text-sm text-gray-700 space-y-2">
-                {selectedPackage.features?.map((feature) => (
+            {selectedPackage && (
+              <ul className="mt-2 rounded-lg bg-gray-50 px-3 py-2 text-xs text-gray-600 space-y-1">
+                {selectedPackage.features?.slice(0, 3).map((feature) => (
                   <li key={feature}>• {feature}</li>
                 ))}
+                {(selectedPackage.features?.length || 0) > 3 && <li>+ more...</li>}
               </ul>
-            ) : (
-              <p className="mt-3 text-sm text-gray-500">
-                Packages bundle different levels of support. Select one to see what is included.
-              </p>
             )}
           </div>
         ) : null}
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div>
-            <label htmlFor="booking-name" className="block text-sm font-medium text-gray-700">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="md:col-span-2 lg:col-span-1">
+            <label htmlFor="booking-name" className="block text-xs font-bold uppercase tracking-wider text-gray-500 mb-2">
               Full name
             </label>
             <input
@@ -401,13 +400,13 @@ export default function ServiceBookingForm({ service, packages = [], initialPack
               value={formValues.name}
               onChange={updateField("name")}
               required
-              className="mt-2 w-full rounded-xl border border-gray-300 px-4 py-3 text-gray-900 placeholder:text-gray-400 focus:border-brand focus:outline-none"
+              className="w-full rounded-xl border border-gray-200 px-4 py-3 text-gray-900 focus:border-brand focus:ring-2 focus:ring-brand/10 focus:outline-none bg-white transition-all"
               placeholder="Jane Doe"
             />
           </div>
 
-          <div>
-            <label htmlFor="booking-email" className="block text-sm font-medium text-gray-700">
+          <div className="md:col-span-1 lg:col-span-1">
+            <label htmlFor="booking-email" className="block text-xs font-bold uppercase tracking-wider text-gray-500 mb-2">
               Email address
             </label>
             <input
@@ -416,13 +415,13 @@ export default function ServiceBookingForm({ service, packages = [], initialPack
               value={formValues.email}
               onChange={updateField("email")}
               required
-              className="mt-2 w-full rounded-xl border border-gray-300 px-4 py-3 text-gray-900 placeholder:text-gray-400 focus:border-brand focus:outline-none"
+              className="w-full rounded-xl border border-gray-200 px-4 py-3 text-gray-900 focus:border-brand focus:ring-2 focus:ring-brand/10 focus:outline-none bg-white transition-all"
               placeholder="you@example.com"
             />
           </div>
 
-          <div>
-            <label htmlFor="booking-phone" className="block text-sm font-medium text-gray-700">
+          <div className="md:col-span-1 lg:col-span-1">
+            <label htmlFor="booking-phone" className="block text-xs font-bold uppercase tracking-wider text-gray-500 mb-2">
               {config.phoneLabel}
             </label>
             <input
@@ -430,8 +429,8 @@ export default function ServiceBookingForm({ service, packages = [], initialPack
               type="tel"
               value={formValues.phone}
               onChange={updateField("phone")}
-              className="mt-2 w-full rounded-xl border border-gray-300 px-4 py-3 text-gray-900 placeholder:text-gray-400 focus:border-brand focus:outline-none"
-              placeholder="+234 800 000 0000"
+              className="w-full rounded-xl border border-gray-200 px-4 py-3 text-gray-900 focus:border-brand focus:ring-2 focus:ring-brand/10 focus:outline-none bg-white transition-all"
+              placeholder="+234 800..."
             />
           </div>
 
@@ -445,15 +444,14 @@ export default function ServiceBookingForm({ service, packages = [], initialPack
                 name="eventDate"
                 value={formValues.eventDate}
                 onChange={(ymd) => setFormValues((p) => ({ ...p, eventDate: ymd }))}
-                minDateStr={minDateStr} // today or future (change to tomorrow by adding +1 above)
+                minDateStr={minDateStr}
               />
-              <p className="mt-2 text-xs text-gray-500">{config.eventDatePlaceholder}</p>
             </div>
           ) : null}
 
           {config.showAudience ? (
             <div>
-              <label htmlFor="booking-audience" className="block text-sm font-medium text-gray-700">
+              <label htmlFor="booking-audience" className="block text-xs font-bold uppercase tracking-wider text-gray-500 mb-2">
                 {config.audienceLabel}
                 {config.audienceRequired ? <span className="text-brand"> *</span> : null}
               </label>
@@ -463,14 +461,14 @@ export default function ServiceBookingForm({ service, packages = [], initialPack
                 value={formValues.audienceSize}
                 onChange={updateField("audienceSize")}
                 required={config.audienceRequired}
-                className="mt-2 w-full rounded-xl border border-gray-300 px-4 py-3 text-gray-900 placeholder:text-gray-400 focus:border-brand focus:outline-none"
+                className="w-full rounded-xl border border-gray-200 px-4 py-3 text-gray-900 focus:border-brand focus:ring-2 focus:ring-brand/10 focus:outline-none bg-white transition-all"
                 placeholder={config.audiencePlaceholder}
               />
             </div>
           ) : null}
 
           <div>
-            <label htmlFor="booking-budget" className="block text-sm font-medium text-gray-700">
+            <label htmlFor="booking-budget" className="block text-xs font-bold uppercase tracking-wider text-gray-500 mb-2">
               {config.budgetLabel}
             </label>
             <input
@@ -478,29 +476,29 @@ export default function ServiceBookingForm({ service, packages = [], initialPack
               type="text"
               value={formValues.budget}
               onChange={updateField("budget")}
-              className="mt-2 w-full rounded-xl border border-gray-300 px-4 py-3 text-gray-900 placeholder:text-gray-400 focus:border-brand focus:outline-none"
+              className="w-full rounded-xl border border-gray-200 px-4 py-3 text-gray-900 focus:border-brand focus:ring-2 focus:ring-brand/10 focus:outline-none bg-white transition-all"
               placeholder={config.budgetPlaceholder}
             />
           </div>
         </div>
 
         <div>
-          <label htmlFor="booking-message" className="block text-sm font-medium text-gray-700">
+          <label htmlFor="booking-message" className="block text-xs font-bold uppercase tracking-wider text-gray-500 mb-2">
             {config.messageLabel}
           </label>
           <textarea
             id="booking-message"
             value={formValues.message}
             onChange={updateField("message")}
-            rows={5}
-            className="mt-2 w-full rounded-xl border border-gray-300 px-4 py-3 text-gray-900 placeholder:text-gray-400 focus:border-brand focus:outline-none"
+            rows={4}
+            className="w-full rounded-xl border border-gray-200 px-4 py-3 text-gray-900 focus:border-brand focus:ring-2 focus:ring-brand/10 focus:outline-none bg-white transition-all"
             placeholder={config.messagePlaceholder}
           />
         </div>
 
         {status ? (
           <div
-            className={`rounded-xl px-4 py-3 text-sm font-medium ${
+            className={`rounded-lg px-3 py-2 text-xs font-medium ${
               status.type === "success"
                 ? "bg-green-50 text-green-700 border border-green-200"
                 : "bg-red-50 text-red-700 border border-red-200"
@@ -513,9 +511,9 @@ export default function ServiceBookingForm({ service, packages = [], initialPack
         <button
           type="submit"
           disabled={isSubmitting}
-          className="inline-flex items-center justify-center rounded-full bg-brand px-8 py-3 text-lg font-semibold text-brand-contrast shadow-lg transition-all duration-300 hover:bg-brand-deep disabled:cursor-not-allowed disabled:opacity-60"
+          className="w-full rounded-full bg-brand px-6 py-3 text-sm font-bold text-white shadow-md transition-all duration-300 hover:bg-brand-deep disabled:cursor-not-allowed disabled:opacity-60"
         >
-          {isSubmitting ? "Sending..." : `Submit booking for ${service.title}`}
+          {isSubmitting ? "Sending..." : "Submit Booking"}
         </button>
       </form>
     </div>

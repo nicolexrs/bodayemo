@@ -2,24 +2,25 @@
 
 export const heroSlides = [
   {
-    title: "Bodayemo Entertainment",
-    subtitle: "Bringing professional flair and unforgettable experiences to your events and content.",
-    ctaText: "Book Now",
+    title: "Where Energy Meets Excellence",
+    subtitle: "Bodayemo Inc. transforms events into legacies through world-class hosting and production strategy. We don't just run the show; we elevate it.",
+    ctaText: "Start Your Experience",
     ctaLink: "/contact",
-    bg: "/images.jpeg",
+    bg: "/hero-stage.png",
+    isVideo: true,
   },
   {
-    title: "Master of Ceremony",
-    subtitle: "Engaging hosting services to make your event a success.",
-    ctaText: "Learn More",
+    title: "The Voice of Your Brand",
+    subtitle: "Charismatic, adaptive, and professional mastery of ceremony. We keep your audience engaged, connected, and energized from the first word to the last.",
+    ctaText: "Discover Our Services",
     ctaLink: "/services",
-    bg: "/images.jpeg",
+    bg: "/hero-gala.png",
   },
   {
-    title: "Premium Video Editing",
-    subtitle: "Crafting stunning visuals that tell your story.",
-    ctaText: "View Portfolio",
+    title: "Stories Told Boldly",
+    subtitle: "High-end content creation and visual storytelling that demands attention. From concept to final cut, we turn your vision into impact.",
+    ctaText: "View Our Work",
     ctaLink: "/gallery",
-    bg: "/g.jpg",
+    bg: "/hero-studio.png",
   },
 ];

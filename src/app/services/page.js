@@ -1,40 +1,59 @@
-﻿import Link from "next/link";
+﻿"use client";
+import Link from "next/link";
+import { motion } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ServicesSection from "@/components/sections/ServicesSection";
 import PageHero from "@/components/PageHero";
-
-export const metadata = {
-  title: "Services | Bodayemo Inc.",
-  description: "Browse the full catalogue of hosting, content, and experiential services crafted by Bodayemo Inc. for modern brands and events.",
-};
+import { containerVariants, itemVariants } from "@/lib/motion";
 
 export default function ServicesPage() {
   return (
-    <div className="min-h-screen bg-gray-50 text-gray-900 font-sans flex flex-col items-center overflow-hidden">
+    <div className="min-h-screen bg-white text-gray-900 font-sans flex flex-col">
       <Navbar />
-      <main className="w-full bg-white pt-14">
+      <main className="w-full">
         <PageHero
           title="Services that spark unforgettable experiences"
           tagline="What We Do"
-          
+          description="From concept to applause, we provide the talent, strategy, and production support to elevate every moment."
         />
-        <div className="space-y-24">
+        
+        <div className="space-y-32 pb-32">
+          {/* Main Services List */}
           <ServicesSection />
-          <section className="px-6 md:px-20 lg:px-60 pb-24">
-            <div className="rounded-3xl bg-gradient-to-r from-brand-soft/10 via-white to-brand-soft/20 p-10 md:p-16 text-center shadow-lg border border-brand-soft/20">
-              <h2 className="text-2xl md:text-3xl font-semibold text-gray-900 mb-4">Need something custom?</h2>
-              <p className="text-gray-600 mb-8 text-base md:text-lg">
-                We tailor every engagement to fit your event goals. Tell us about the ambience, audience, and outcomes you want, and we will design the perfect mix of services.
-              </p>
-              <Link
-                href="/contact"
-                className="inline-flex items-center justify-center rounded-full bg-brand px-6 py-3 text-sm font-semibold text-brand-contrast shadow transition-all duration-300 hover:bg-brand-deep"
-              >
-                Start a project conversation
-              </Link>
-            </div>
-          </section>
+          
+          {/* Custom Service CTA */}
+          <motion.section 
+            className="px-6 md:px-12 lg:px-24"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={containerVariants}
+          >
+            <motion.div 
+              variants={itemVariants}
+              className="rounded-[3rem] bg-gradient-to-br from-gray-900 to-gray-800 text-white p-12 md:p-20 text-center shadow-2xl relative overflow-hidden"
+            >
+              {/* Decorative Glows */}
+              <div className="absolute top-0 right-0 w-96 h-96 bg-brand/20 blur-[100px] rounded-full" />
+              <div className="absolute bottom-0 left-0 w-96 h-96 bg-blue-500/20 blur-[100px] rounded-full" />
+
+              <div className="relative z-10 max-w-3xl mx-auto space-y-8">
+                <h2 className="text-3xl md:text-5xl font-bold">Need something clearly custom?</h2>
+                <p className="text-gray-300 text-lg md:text-xl leading-relaxed">
+                  We tailor every engagement to fit your unique event goals. Tell us about the space, the people, and the feeling you want to create, and we will design the perfect mix.
+                </p>
+                <div className="pt-4">
+                  <Link
+                    href="/contact"
+                    className="inline-flex items-center justify-center rounded-full bg-white text-gray-900 px-8 py-4 text-base font-bold shadow-lg hover:shadow-xl hover:bg-brand hover:text-white transition-all duration-300 transform hover:-translate-y-1"
+                  >
+                    Start a Project Conversation
+                  </Link>
+                </div>
+              </div>
+            </motion.div>
+          </motion.section>
         </div>
       </main>
       <Footer />
