@@ -79,12 +79,18 @@ export default function GallerySection() {
                     />
                   ) : (
                     <>
+                      {/* Placeholder/Fallback behind video */}
+                      <div className="absolute inset-0 bg-gray-900 flex items-center justify-center">
+                        <span className="text-white/20 text-sm font-medium tracking-widest uppercase">Loading</span>
+                      </div>
+                      
                       <video
                         src={mediaItem.src}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 relative z-10"
                         muted
                         playsInline
                         preload="auto"
+                        poster="/by.jpg"
                       />
                       <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
                         <div className="w-14 h-14 rounded-full bg-white/30 backdrop-blur-md flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-lg border border-white/40">
