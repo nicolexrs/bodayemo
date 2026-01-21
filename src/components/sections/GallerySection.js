@@ -84,7 +84,7 @@ export default function GallerySection() {
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                         muted
                         playsInline
-                        preload="metadata"
+                        preload="auto"
                       />
                       <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
                         <div className="w-14 h-14 rounded-full bg-white/30 backdrop-blur-md flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-lg border border-white/40">
@@ -118,10 +118,11 @@ export default function GallerySection() {
             onClick={() => setSelectedMedia(null)}
           >
             <button 
-              className="absolute top-6 right-6 p-2 rounded-full bg-black/5 text-gray-900 hover:bg-brand hover:text-white transition-colors z-50"
+              className="absolute top-4 right-4 md:top-8 md:right-8 p-3 rounded-full bg-white text-gray-900 hover:bg-brand hover:text-white transition-colors z-50 shadow-lg border border-gray-100"
               onClick={() => setSelectedMedia(null)}
+              aria-label="Close gallery"
             >
-              <XIcon className="w-8 h-8" />
+              <XIcon className="w-6 h-6" />
             </button>
 
             <motion.div
